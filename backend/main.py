@@ -111,10 +111,18 @@ def generate_signed_url(user):  # 'user' parameter added by @require_auth decora
 
 
 @app.route('/api/generate-post-url', methods=['POST'])
-def generate_post_url():
+@require_auth  # 🔒 NOW REQUIRES FIREBASE AUTHENTICATION!
+def generate_post_url(user):  # 'user' parameter added by @require_auth decorator
     """
     Generate a signed POST policy for form-based uploads.
     This allows HTML forms to upload directly to Cloud Storage.
+    NOW REQUIRES AUTHENTICATION!
+
+    Request headers:
+    {
+        "Authorization": "Bearer <firebase-id-token>",
+        "Content-Type": "application/json"
+    }
 
     Request body:
     {
@@ -123,6 +131,10 @@ def generate_post_url():
     }
     """
     try:
+        # Extract user info from Firebase token
+        user_id = user['uid']
+        user_email = user.get('email', 'unknown')
+
         data = request.get_json()
         filename = data.get('filename')
         content_type = data.get('content_type', 'application/octet-stream')
@@ -130,9 +142,11 @@ def generate_post_url():
         if not filename:
             return jsonify({'error': 'filename is required'}), 400
 
-        # Generate unique filename with timestamp
+        # Generate unique filename with USER ID and timestamp
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        unique_filename = f"uploads/{timestamp}_{filename}"
+        unique_filename = f"uploads/{user_id}/{timestamp}_{filename}"
+
+        print(f"✅ User {user_email} ({user_id}) requesting POST URL for {filename}")
 
         bucket = storage_client.bucket(BUCKET_NAME)
         blob = bucket.blob(unique_filename)
@@ -153,6 +167,7 @@ def generate_post_url():
             'method': 'POST',
             'expires_in': '15 minutes',
             'max_file_size': '100MB',
+            'user_email': user_email,  # NEW: Include who requested this
             'instructions': 'Use POST method with form-data including all fields'
         })
 
@@ -215,11 +230,21 @@ def generate_resumable_url(user):  # 'user' parameter added by @require_auth dec
 
 
 @app.route('/api/list-files', methods=['GET'])
-def list_files():
-    """List uploaded files in the bucket"""
+@require_auth  # 🔒 NOW REQUIRES FIREBASE AUTHENTICATION!
+def list_files(user):  # 'user' parameter added by @require_auth decorator
+    """
+    List uploaded files for the authenticated user.
+    NOW REQUIRES AUTHENTICATION - users can only see their own files!
+    """
     try:
+        user_id = user['uid']
+        user_email = user.get('email', 'unknown')
+
+        print(f"✅ User {user_email} ({user_id}) listing their files")
+
         bucket = storage_client.bucket(BUCKET_NAME)
-        blobs = list(bucket.list_blobs(prefix='uploads/', max_results=50))
+        # Only list files for this specific user
+        blobs = list(bucket.list_blobs(prefix=f'uploads/{user_id}/', max_results=50))
 
         files = []
         for blob in blobs:
