@@ -1,0 +1,46 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+terraform.tfvars
+
+# Service Account Keys (SENSITIVE - DO NOT COMMIT!)
+service-account-key.json
+backend/service-account-key.json
+
+# Firebase Configuration (contains your project credentials)
+frontend/firebase-config.js
+
+# Terraform state and lock files (may contain sensitive data)
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Allow specific JSON files that need to be committed
+!frontend/firebase-config.example.js
+!package.json
+!tsconfig.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# App Engine
+.gcloudignore

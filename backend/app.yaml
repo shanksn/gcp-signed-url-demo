@@ -1,0 +1,17 @@
+runtime: python312
+
+env_variables:
+  BUCKET_NAME: "biotechproject-483505-music-uploads"
+  SERVICE_ACCOUNT_EMAIL: "url-signer@biotechproject-483505.iam.gserviceaccount.com"
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: 30ms
+  max_pending_latency: automatic
+  max_concurrent_requests: 50

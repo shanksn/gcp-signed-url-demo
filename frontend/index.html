@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Storage Upload Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .config {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .config label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .config input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .config input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: #667eea;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .upload-area.dragging {
+            border-color: #667eea;
+            background: #e8eeff;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .file-info {
+            text-align: left;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .file-info div {
+            margin-bottom: 8px;
+        }
+
+        .file-info strong {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cloud Storage Upload Demo</h1>
+        <p class="subtitle">Learn different methods for uploading files directly to Google Cloud Storage</p>
+
+        <div class="config">
+            <label for="backendUrl">Backend API URL:</label>
+            <input type="text" id="backendUrl" placeholder="http://localhost:8080 or https://your-app.appspot.com" value="http://localhost:8080">
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="standard">Standard Signed URL</button>
+            <button class="tab" data-tab="resumable">Resumable Upload</button>
+        </div>
+
+        <!-- Standard Signed URL Tab -->
+        <div class="tab-content active" id="standard">
+            <h3>Standard Signed URL (PUT Method)</h3>
+            <p style="margin-bottom: 20px; color: #666;">Best for small to medium files. Direct upload to GCS without passing through backend.</p>
+
+            <div class="upload-area" id="standardDropZone">
+                <p style="font-size: 18px; margin-bottom: 10px;">📁 Drop file here or click to select</p>
+                <p style="color: #999; font-size: 14px;">Maximum file size: 100MB</p>
+            </div>
+            <input type="file" id="standardFileInput">
+
+            <div class="progress" id="standardProgress">
+                <div class="progress-bar" id="standardProgressBar">0%</div>
+            </div>
+
+            <div id="standardFileInfo" class="file-info" style="display: none;"></div>
+
+            <button id="standardUploadBtn" style="display: none;">Upload File</button>
+
+            <div id="standardStatus" class="status"></div>
+        </div>
+
+        <!-- Resumable Upload Tab -->
+        <div class="tab-content" id="resumable">
+            <h3>Resumable Upload</h3>
+            <p style="margin-bottom: 20px; color: #666;">Best for large files. Supports pause, resume, and network interruption recovery.</p>
+
+            <div class="upload-area" id="resumableDropZone">
+                <p style="font-size: 18px; margin-bottom: 10px;">📁 Drop large file here or click to select</p>
+                <p style="color: #999; font-size: 14px;">Supports very large files with pause/resume</p>
+            </div>
+            <input type="file" id="resumableFileInput">
+
+            <div class="progress" id="resumableProgress">
+                <div class="progress-bar" id="resumableProgressBar">0%</div>
+            </div>
+
+            <div id="resumableFileInfo" class="file-info" style="display: none;"></div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="resumableUploadBtn" style="display: none;">Upload File</button>
+                <button id="resumablePauseBtn" style="display: none; background: #ffc107;">Pause</button>
+                <button id="resumableResumeBtn" style="display: none; background: #28a745;">Resume</button>
+            </div>
+
+            <div id="resumableStatus" class="status"></div>
+        </div>
+    </div>
+
+    <script src="upload.js"></script>
+</body>
+</html>

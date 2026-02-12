@@ -1,0 +1,5 @@
+# Terraform Variables - EXAMPLE TEMPLATE
+# Copy this file to terraform.tfvars and replace with your actual GCP project ID
+
+project_id = "your-gcp-project-id"
+region     = "us-central1"

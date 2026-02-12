@@ -1,0 +1,169 @@
+GCP Signed URL Demo - Project Structure
+========================================
+
+📦 GCP Projects - Signed URL/
+│
+├── 📖 DOCUMENTATION (Start with START_HERE.md!)
+│   ├── START_HERE.md          ⭐ Begin here - Choose your learning path
+│   ├── QUICKSTART.md          🚀 Get running in 5 minutes
+│   ├── LEARNING.md            🎓 Core concepts + quiz
+│   ├── ARCHITECTURE.md        🏗️  Flow diagrams & architecture
+│   ├── README.md              📚 Complete reference guide
+│   └── PROJECT_SUMMARY.md     📊 What's included overview
+│
+├── 🏗️  INFRASTRUCTURE (Terraform)
+│   ├── main.tf                   Complete Terraform config
+│   ├── main.tf.simple            Simplified version for learning
+│   ├── variables.tf              Input variables
+│   ├── outputs.tf                Useful outputs
+│   └── terraform.tfvars.example  Configuration template
+│
+├── 🐍 BACKEND (Python/Flask API)
+│   ├── main.py                   Flask app with 3 endpoints:
+│   │                             • /api/generate-signed-url
+│   │                             • /api/generate-resumable-url
+│   │                             • /api/list-files
+│   ├── requirements.txt          Python dependencies
+│   └── app.yaml                  App Engine configuration
+│
+├── 🎨 FRONTEND (HTML/JavaScript)
+│   ├── index.html                Beautiful upload UI
+│   └── upload.js                 Upload logic:
+│                                 • Standard signed URL upload
+│                                 • Resumable upload with pause/resume
+│                                 • Progress tracking
+│
+├── 🚀 AUTOMATION SCRIPTS
+│   ├── deploy.sh                 Deploy to GCP (one command!)
+│   ├── run-local.sh              Run locally for testing
+│   └── .gitignore                Keep secrets safe
+│
+└── 📝 OTHER
+    └── PROJECT_STRUCTURE.txt     This file!
+
+KEY CONCEPTS DEMONSTRATED
+=========================
+
+1. ✅ Signed URLs - Time-limited upload authentication
+2. ✅ CORS Configuration - Enable browser uploads  
+3. ✅ Direct Uploads - Bypass backend for performance
+4. ✅ Terraform IaC - Infrastructure as code
+5. ✅ Service Accounts - Secure URL signing
+6. ✅ Resumable Uploads - Handle large files
+
+LEARNING PATHS
+==============
+
+📖 Concepts Only (20 min, $0)
+   → Read LEARNING.md
+   → Review ARCHITECTURE.md
+   → Take quiz
+
+🧪 Local Testing (30 min, < $1)
+   → Follow QUICKSTART.md
+   → Run: terraform apply && ./run-local.sh
+   → Upload files and experiment
+
+🚀 Production Deploy (45 min, < $1)
+   → Complete local testing
+   → Run: ./deploy.sh
+   → Access from anywhere!
+
+QUICK START COMMANDS
+====================
+
+# Deploy infrastructure
+cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars with your project ID
+terraform init
+terraform apply
+
+# Run locally
+./run-local.sh
+
+# Deploy to production  
+./deploy.sh
+
+# Clean up
+terraform destroy
+
+FILE COUNTS
+===========
+
+Documentation:  6 guides
+Terraform:      5 files
+Backend:        3 files
+Frontend:       2 files
+Scripts:        3 files
+Total:          19 files
+
+~1,500 lines of code
+~10,000 words of documentation
+
+WHAT YOU'LL BUILD
+=================
+
+Infrastructure:
+  • Cloud Storage bucket (with CORS)
+  • Service account (for signing)
+  • IAM permissions
+  • App Engine app (optional)
+
+Application:
+  • REST API (3 endpoints)
+  • Upload UI (drag & drop)
+  • 2 upload methods
+  • Progress tracking
+
+GCP EXAM QUESTION
+=================
+
+Q: Allow users to upload files directly to Cloud Storage 
+   from browser. Payload should NOT pass through backend.
+
+A: 1. Set CORS on bucket ✓
+   2. Use Signed URLs ✓
+   3. Browser → GCS directly ✓
+
+THIS PROJECT = THE COMPLETE ANSWER!
+
+TECHNOLOGIES USED
+=================
+
+Infrastructure:
+  • Terraform (IaC)
+  • Google Cloud Storage
+  • Google App Engine
+  • Google Cloud IAM
+
+Backend:
+  • Python 3.12
+  • Flask
+  • google-cloud-storage SDK
+
+Frontend:
+  • HTML5
+  • JavaScript ES6+
+  • CSS3
+
+COST ESTIMATE
+=============
+
+Development/Learning:  $0 (local testing)
+Light Production:      < $1/month
+GCP Free Tier:         Covers most usage
+
+NEXT STEPS
+==========
+
+1. Open START_HERE.md
+2. Choose your learning path
+3. Start learning!
+
+Questions? Check the documentation in this order:
+  1. START_HERE.md
+  2. QUICKSTART.md
+  3. LEARNING.md
+  4. README.md
+
+Happy learning! 🚀
