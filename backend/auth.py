@@ -12,6 +12,42 @@ import functools
 import os
 
 
+# ============================================
+# ACCESS CONTROL CONFIGURATION
+# ============================================
+
+# Email Whitelist - Only these email addresses can access the API
+# Add or remove emails as needed
+ALLOWED_EMAILS = [
+    'shanksreader@gmail.com',  # Add your allowed email addresses here
+    # 'another-user@gmail.com',
+    # 'user@company.com',
+]
+
+
+def is_user_allowed(email):
+    """
+    Check if a user's email is allowed based on whitelist.
+
+    Args:
+        email (str): User's email address
+
+    Returns:
+        tuple: (bool, str) - (is_allowed, reason_if_denied)
+    """
+    if not email:
+        return False, "No email found in token"
+
+    # Check if email is in whitelist (case-insensitive)
+    email_lower = email.lower()
+    allowed_emails_lower = [e.lower() for e in ALLOWED_EMAILS]
+
+    if email_lower in allowed_emails_lower:
+        return True, None
+    else:
+        return False, f"Email '{email}' is not authorized to access this application"
+
+
 # Initialize Firebase Admin SDK
 # Uses the same service account key created by Terraform
 KEY_PATH = os.path.join(os.path.dirname(__file__), 'service-account-key.json')
@@ -69,8 +105,19 @@ def require_auth(f):
             # - Token was issued by Firebase
             decoded_token = auth.verify_id_token(id_token)
 
-            # Log successful auth (optional, remove in production)
+            # Check if user is in whitelist
             user_email = decoded_token.get('email', 'unknown')
+            is_allowed, deny_reason = is_user_allowed(user_email)
+
+            if not is_allowed:
+                print(f"🚫 Access denied for user: {user_email} - {deny_reason}")
+                return jsonify({
+                    'error': 'Access Denied',
+                    'message': deny_reason,
+                    'hint': 'Contact the administrator to request access'
+                }), 403
+
+            # Log successful auth
             print(f"✅ Authenticated user: {user_email}")
 
             # Pass the decoded token to the route function
