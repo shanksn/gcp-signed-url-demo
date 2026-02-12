@@ -8,8 +8,8 @@
 
 📍 YOUR APPLICATION
 
-   Backend API:  https://biotechproject-483505.uc.r.appspot.com
-   Bucket:       biotechproject-483505-music-uploads
+   Backend API:  https://YOUR-PROJECT-ID.uc.r.appspot.com
+   Bucket:       YOUR-PROJECT-ID-music-uploads
    Status:       🟢 OPERATIONAL
 
 ✅ WHAT'S DEPLOYED
@@ -28,7 +28,7 @@
    2. Open browser to: http://localhost:8000
 
    3. Set Backend URL to: 
-      https://biotechproject-483505.uc.r.appspot.com
+      https://YOUR-PROJECT-ID.uc.r.appspot.com
 
    4. Upload files!
 
@@ -61,7 +61,7 @@
 
 🔗 QUICK LINKS
 
-   Console:  https://console.cloud.google.com/storage/browser/biotechproject-483505-music-uploads
+   Console:  https://console.cloud.google.com/storage/browser/YOUR-PROJECT-ID-music-uploads
    Logs:     gcloud app logs tail -s default
 
 🎯 THIS ANSWERS THE GCP EXAM QUESTION!

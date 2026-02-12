@@ -5,7 +5,7 @@ echo "🎉 Complete End-to-End Test"
 echo "============================"
 echo ""
 
-API_URL="https://biotechproject-483505.uc.r.appspot.com"
+API_URL="https://YOUR-PROJECT-ID.uc.r.appspot.com"
 
 # Test 1: Health check
 echo "Test 1: Health Check ✓"
@@ -46,7 +46,7 @@ echo "✅ All tests passed!"
 echo ""
 echo "🌐 Your application is fully functional!"
 echo "   Backend: $API_URL"
-echo "   Bucket: biotechproject-483505-music-uploads"
+echo "   Bucket: YOUR-PROJECT-ID-music-uploads"
 echo ""
 echo "📖 Next steps:"
 echo "   1. Open frontend/index.html in your browser"

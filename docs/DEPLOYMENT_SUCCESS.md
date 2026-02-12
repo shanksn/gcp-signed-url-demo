@@ -5,11 +5,11 @@ Your GCP Cloud Storage Signed URL demo has been successfully deployed to Google 
 ## 📍 Your Application URLs
 
 ### Backend API (App Engine)
-**URL:** https://biotechproject-483505.uc.r.appspot.com
+**URL:** https://YOUR-PROJECT-ID.uc.r.appspot.com
 
 **Test the API:**
 ```bash
-curl https://biotechproject-483505.uc.r.appspot.com/
+curl https://YOUR-PROJECT-ID.uc.r.appspot.com/
 ```
 
 **Available Endpoints:**
@@ -18,13 +18,13 @@ curl https://biotechproject-483505.uc.r.appspot.com/
 - `GET /api/list-files` - List uploaded files
 
 ### Cloud Storage Bucket
-**Bucket Name:** biotechproject-483505-music-uploads
+**Bucket Name:** YOUR-PROJECT-ID-music-uploads
 
 **View in Console:**
-https://console.cloud.google.com/storage/browser/biotechproject-483505-music-uploads
+https://console.cloud.google.com/storage/browser/YOUR-PROJECT-ID-music-uploads
 
 ### Service Account
-**Email:** url-signer@biotechproject-483505.iam.gserviceaccount.com
+**Email:** url-signer@YOUR-PROJECT-ID.iam.gserviceaccount.com
 
 ## 🚀 How to Use the Application
 
@@ -40,7 +40,7 @@ https://console.cloud.google.com/storage/browser/biotechproject-483505-music-upl
 
 3. **Update Backend URL in the UI:**
    - Change from `http://localhost:8080`
-   - To: `https://biotechproject-483505.uc.r.appspot.com`
+   - To: `https://YOUR-PROJECT-ID.uc.r.appspot.com`
 
 4. **Upload files!** Try both upload methods:
    - Standard Signed URL
@@ -50,7 +50,7 @@ https://console.cloud.google.com/storage/browser/biotechproject-483505-music-upl
 
 **Generate a signed URL:**
 ```bash
-curl -X POST https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url \
+curl -X POST https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url \
   -H "Content-Type: application/json" \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq .
 ```
@@ -58,7 +58,7 @@ curl -X POST https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-
 **Upload a file using the signed URL:**
 ```bash
 # First, get the signed URL
-SIGNED_URL=$(curl -s -X POST https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url \
+SIGNED_URL=$(curl -s -X POST https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url \
   -H "Content-Type: application/json" \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq -r '.signed_url')
 
@@ -71,7 +71,7 @@ curl -X PUT "$SIGNED_URL" \
   --data-binary @test.txt
 
 # Verify upload
-curl https://biotechproject-483505.uc.r.appspot.com/api/list-files | jq .
+curl https://YOUR-PROJECT-ID.uc.r.appspot.com/api/list-files | jq .
 ```
 
 ### Option 3: Deploy Frontend to Cloud Storage
@@ -80,19 +80,19 @@ You can also host the frontend as a static website on Cloud Storage:
 
 ```bash
 # Create a bucket for the website
-gsutil mb gs://biotechproject-483505-frontend
+gsutil mb gs://YOUR-PROJECT-ID-frontend
 
 # Copy frontend files
-gsutil cp -r frontend/* gs://biotechproject-483505-frontend/
+gsutil cp -r frontend/* gs://YOUR-PROJECT-ID-frontend/
 
 # Make it public
-gsutil iam ch allUsers:objectViewer gs://biotechproject-483505-frontend
+gsutil iam ch allUsers:objectViewer gs://YOUR-PROJECT-ID-frontend
 
 # Enable website configuration
-gsutil web set -m index.html gs://biotechproject-483505-frontend
+gsutil web set -m index.html gs://YOUR-PROJECT-ID-frontend
 
 # Access at:
-# https://storage.googleapis.com/biotechproject-483505-frontend/index.html
+# https://storage.googleapis.com/YOUR-PROJECT-ID-frontend/index.html
 ```
 
 ## 🔍 Monitor Your Application
@@ -103,9 +103,9 @@ gcloud app logs tail -s default
 ```
 
 ### View in GCP Console
-- **App Engine:** https://console.cloud.google.com/appengine?project=biotechproject-483505
-- **Cloud Storage:** https://console.cloud.google.com/storage/browser?project=biotechproject-483505
-- **IAM:** https://console.cloud.google.com/iam-admin/serviceaccounts?project=biotechproject-483505
+- **App Engine:** https://console.cloud.google.com/appengine?project=YOUR-PROJECT-ID
+- **Cloud Storage:** https://console.cloud.google.com/storage/browser?project=YOUR-PROJECT-ID
+- **IAM:** https://console.cloud.google.com/iam-admin/serviceaccounts?project=YOUR-PROJECT-ID
 
 ## 📊 What Was Deployed
 
@@ -146,7 +146,7 @@ Your current deployment costs approximately:
 
 ### Test 3: List Files
 ```bash
-curl https://biotechproject-483505.uc.r.appspot.com/api/list-files | jq .
+curl https://YOUR-PROJECT-ID.uc.r.appspot.com/api/list-files | jq .
 ```
 
 ## 📚 Key Learning Points
@@ -182,7 +182,7 @@ To avoid ongoing charges:
 
 ```bash
 # Delete uploaded files
-gsutil -m rm -r gs://biotechproject-483505-music-uploads/uploads/
+gsutil -m rm -r gs://YOUR-PROJECT-ID-music-uploads/uploads/
 
 # Destroy infrastructure
 cd "/Users/shankar/Documents/GCP Projects - Signed URL"
@@ -221,8 +221,8 @@ You've successfully deployed a real-world GCP application that demonstrates:
 
 ---
 
-**Your App:** https://biotechproject-483505.uc.r.appspot.com
-**Your Bucket:** biotechproject-483505-music-uploads
-**Project:** biotechproject-483505
+**Your App:** https://YOUR-PROJECT-ID.uc.r.appspot.com
+**Your Bucket:** YOUR-PROJECT-ID-music-uploads
+**Project:** YOUR-PROJECT-ID
 
 Happy learning! 🚀

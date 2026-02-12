@@ -10,7 +10,7 @@ This means Google Sign-In provider is not enabled in Firebase Authentication.
 ### Option 1: Direct Link ⚡ FASTEST
 Click this URL - it opens the exact page you need:
 ```
-https://console.firebase.google.com/u/0/project/biotechproject-483505/authentication/providers
+https://console.firebase.google.com/u/0/project/YOUR-PROJECT-ID/authentication/providers
 ```
 
 Then skip to **Step 5** below.
@@ -25,7 +25,7 @@ https://console.firebase.google.com
 ```
 
 **Step 2: Select Your Project**
-- Look for a card or dropdown that says **"biotechproject-483505"**
+- Look for a card or dropdown that says **"YOUR-PROJECT-ID"**
 - Click on it
 
 **Step 3: Find Authentication in Sidebar**
@@ -105,7 +105,7 @@ A panel will open on the right side:
 │                                          │
 │ Project public-facing name (optional)    │
 │ ┌─────────────────────────────────────┐ │
-│ │ biotechproject-483505               │ │
+│ │ YOUR-PROJECT-ID               │ │
 │ └─────────────────────────────────────┘ │
 │                                          │
 │        ┌────────┐     ┌──────┐         │

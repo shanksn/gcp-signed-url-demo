@@ -50,7 +50,7 @@ url = blob.generate_signed_url(
 1. **Creates a canonical request** (the thing to sign):
    ```
    PUT
-   /biotechproject-483505-music-uploads/uploads/20260211_190000_song.mp3
+   /YOUR-PROJECT-ID-music-uploads/uploads/20260211_190000_song.mp3
    
    content-type:audio/mpeg
    host:storage.googleapis.com
@@ -80,7 +80,7 @@ url = blob.generate_signed_url(
 **Response:**
 ```json
 {
-  "signed_url": "https://storage.googleapis.com/biotechproject-483505-music-uploads/uploads/20260211_190000_song.mp3?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=url-signer%40biotechproject-483505.iam.gserviceaccount.com%2F20260211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260211T190000Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=b9aff5a0c0341682958f8ffa74ec081c...",
+  "signed_url": "https://storage.googleapis.com/YOUR-PROJECT-ID-music-uploads/uploads/20260211_190000_song.mp3?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=url-signer%40YOUR-PROJECT-ID.iam.gserviceaccount.com%2F20260211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260211T190000Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=b9aff5a0c0341682958f8ffa74ec081c...",
   "filename": "uploads/20260211_190000_song.mp3",
   "method": "PUT",
   "expires_in": "15 minutes"
@@ -102,7 +102,7 @@ xhr.send(file);  // Send the 50MB file
 
 **What happens on the network:**
 ```http
-PUT /biotechproject-483505-music-uploads/uploads/20260211_190000_song.mp3?X-Goog-Algorithm=GOOG4-RSA-SHA256&... HTTP/1.1
+PUT /YOUR-PROJECT-ID-music-uploads/uploads/20260211_190000_song.mp3?X-Goog-Algorithm=GOOG4-RSA-SHA256&... HTTP/1.1
 Host: storage.googleapis.com
 Content-Type: audio/mpeg
 Content-Length: 52428800
@@ -146,7 +146,7 @@ Content-Length: 0
 ```
 
 File is now in Cloud Storage at:
-`gs://biotechproject-483505-music-uploads/uploads/20260211_190000_song.mp3`
+`gs://YOUR-PROJECT-ID-music-uploads/uploads/20260211_190000_song.mp3`
 
 ---
 
@@ -211,10 +211,10 @@ resource "local_file" "service_account_key" {
 ```json
 {
   "type": "service_account",
-  "project_id": "biotechproject-483505",
+  "project_id": "YOUR-PROJECT-ID",
   "private_key_id": "dda1eb3632d192294ed5a0ed05dbe2e83c7e0acd",
   "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
-  "client_email": "url-signer@biotechproject-483505.iam.gserviceaccount.com"
+  "client_email": "url-signer@YOUR-PROJECT-ID.iam.gserviceaccount.com"
 }
 ```
 
@@ -238,7 +238,7 @@ Let's decode an actual signed URL from your app:
 
 ### The URL
 ```
-https://storage.googleapis.com/biotechproject-483505-music-uploads/uploads/20260211_184733_example.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=url-signer%40biotechproject-483505.iam.gserviceaccount.com%2F20260211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260211T184733Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=b9aff5a0c0341682...
+https://storage.googleapis.com/YOUR-PROJECT-ID-music-uploads/uploads/20260211_184733_example.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=url-signer%40YOUR-PROJECT-ID.iam.gserviceaccount.com%2F20260211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260211T184733Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=b9aff5a0c0341682...
 ```
 
 ### Decoded Components
@@ -306,7 +306,7 @@ Signed URLs are:
 
 ### Generate a Signed URL
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq .
 ```
@@ -325,7 +325,7 @@ curl -X PUT "$SIGNED_URL" \
   --data-binary @test.txt
 
 # Check if it worked
-curl https://biotechproject-483505.uc.r.appspot.com/api/list-files | jq .
+curl https://YOUR-PROJECT-ID.uc.r.appspot.com/api/list-files | jq .
 ```
 
 ### See It Expire

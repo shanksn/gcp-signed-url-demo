@@ -1,8 +1,8 @@
 runtime: python312
 
 env_variables:
-  BUCKET_NAME: "biotechproject-483505-music-uploads"
-  SERVICE_ACCOUNT_EMAIL: "url-signer@biotechproject-483505.iam.gserviceaccount.com"
+  BUCKET_NAME: "YOUR-PROJECT-ID-music-uploads"
+  SERVICE_ACCOUNT_EMAIL: "url-signer@YOUR-PROJECT-ID.iam.gserviceaccount.com"
 
 handlers:
 - url: /.*

@@ -4,8 +4,8 @@ Your GCP Cloud Storage Signed URL application is now **fully deployed and workin
 
 ## ✅ What's Running
 
-**Backend API:** https://biotechproject-483505.uc.r.appspot.com
-**Cloud Storage Bucket:** biotechproject-483505-music-uploads
+**Backend API:** https://YOUR-PROJECT-ID.uc.r.appspot.com
+**Cloud Storage Bucket:** YOUR-PROJECT-ID-music-uploads
 **Status:** 🟢 All systems operational
 
 ## 🎯 Quick Test (30 seconds)
@@ -21,7 +21,7 @@ python3 -m http.server 8000
 
 Then:
 1. Open http://localhost:8000 in your browser
-2. **Change Backend URL** to: `https://biotechproject-483505.uc.r.appspot.com`
+2. **Change Backend URL** to: `https://YOUR-PROJECT-ID.uc.r.appspot.com`
 3. Click or drag a file to upload
 4. Watch it upload directly to Google Cloud Storage!
 
@@ -40,7 +40,7 @@ cd "/Users/shankar/Documents/GCP Projects - Signed URL"
 1. **Open the frontend** at http://localhost:8000 (after starting python server)
 2. **Update Backend URL** in the text box at the top:
    - Change from: `http://localhost:8080`
-   - Change to: `https://biotechproject-483505.uc.r.appspot.com`
+   - Change to: `https://YOUR-PROJECT-ID.uc.r.appspot.com`
 3. Click the **"Standard Signed URL"** tab
 4. **Select a file** (or drag and drop)
 5. Click **"Upload File"**
@@ -62,20 +62,20 @@ cd "/Users/shankar/Documents/GCP Projects - Signed URL"
 
 ### In the GCP Console
 
-Visit: https://console.cloud.google.com/storage/browser/biotechproject-483505-music-uploads
+Visit: https://console.cloud.google.com/storage/browser/YOUR-PROJECT-ID-music-uploads
 
 You'll see all your uploaded files in the `uploads/` folder!
 
 ### Using the API
 
 ```bash
-curl https://biotechproject-483505.uc.r.appspot.com/api/list-files | jq .
+curl https://YOUR-PROJECT-ID.uc.r.appspot.com/api/list-files | jq .
 ```
 
 ### Using gsutil
 
 ```bash
-gsutil ls gs://biotechproject-483505-music-uploads/uploads/
+gsutil ls gs://YOUR-PROJECT-ID-music-uploads/uploads/
 ```
 
 ## 🧪 API Examples
@@ -83,7 +83,7 @@ gsutil ls gs://biotechproject-483505-music-uploads/uploads/
 ### Generate a Signed URL
 
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{
     "filename": "my-song.mp3",
@@ -95,7 +95,7 @@ curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed
 
 ```bash
 # Step 1: Get signed URL
-SIGNED_URL=$(curl -s -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+SIGNED_URL=$(curl -s -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq -r '.signed_url')
 
@@ -105,13 +105,13 @@ curl -X PUT "$SIGNED_URL" \
   --data-binary @yourfile.txt
 
 # Step 3: Verify
-curl https://biotechproject-483505.uc.r.appspot.com/api/list-files | jq .
+curl https://YOUR-PROJECT-ID.uc.r.appspot.com/api/list-files | jq .
 ```
 
 ### Generate Resumable Upload URL
 
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-resumable-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-resumable-url' \
   -H 'Content-Type: application/json' \
   -d '{
     "filename": "large-file.zip",
@@ -171,19 +171,19 @@ This pattern is used by:
 
 ### View Logs
 ```bash
-gcloud app logs tail -s default --project=biotechproject-483505
+gcloud app logs tail -s default --project=YOUR-PROJECT-ID
 ```
 
 ### View in Console
-- **App Engine:** https://console.cloud.google.com/appengine?project=biotechproject-483505
-- **Storage:** https://console.cloud.google.com/storage/browser?project=biotechproject-483505
+- **App Engine:** https://console.cloud.google.com/appengine?project=YOUR-PROJECT-ID
+- **Storage:** https://console.cloud.google.com/storage/browser?project=YOUR-PROJECT-ID
 
 ### Check Costs
 ```bash
 gcloud billing accounts list
 ```
 
-Visit: https://console.cloud.google.com/billing?project=biotechproject-483505
+Visit: https://console.cloud.google.com/billing?project=YOUR-PROJECT-ID
 
 ## 🎨 Customize Your Application
 
@@ -219,7 +219,7 @@ To avoid ongoing charges:
 
 ```bash
 # Delete uploaded files
-gsutil -m rm -r gs://biotechproject-483505-music-uploads/uploads/
+gsutil -m rm -r gs://YOUR-PROJECT-ID-music-uploads/uploads/
 
 # Destroy infrastructure
 cd "/Users/shankar/Documents/GCP Projects - Signed URL"
@@ -262,8 +262,8 @@ You've successfully deployed a production-ready GCP application that:
 ---
 
 **Quick Links:**
-- **Backend:** https://biotechproject-483505.uc.r.appspot.com
-- **Console:** https://console.cloud.google.com/storage/browser/biotechproject-483505-music-uploads
+- **Backend:** https://YOUR-PROJECT-ID.uc.r.appspot.com
+- **Console:** https://console.cloud.google.com/storage/browser/YOUR-PROJECT-ID-music-uploads
 - **Logs:** `gcloud app logs tail -s default`
 
 Happy uploading! 🚀

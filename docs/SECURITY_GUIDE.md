@@ -4,7 +4,7 @@
 
 **Your backend is currently OPEN to anyone!**
 
-Anyone who knows `https://biotechproject-483505.uc.r.appspot.com` can:
+Anyone who knows `https://YOUR-PROJECT-ID.uc.r.appspot.com` can:
 - ✓ Request signed URLs
 - ✓ Upload files to your bucket
 - ✓ Use your Cloud Storage quota
@@ -412,7 +412,7 @@ In Google Cloud Console:
 ### Test 1: Without Auth (Current)
 ```bash
 # Anyone can do this:
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}'
 

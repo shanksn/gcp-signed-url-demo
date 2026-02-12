@@ -15,7 +15,7 @@ Open http://localhost:8000
 
 1. **Open Developer Tools** (F12 or Right-click → Inspect)
 2. **Go to Network tab**
-3. **Set Backend URL** to: `https://biotechproject-483505.uc.r.appspot.com`
+3. **Set Backend URL** to: `https://YOUR-PROJECT-ID.uc.r.appspot.com`
 4. **Select a file** to upload
 5. **Watch the Network tab** - you'll see:
    - First request: `generate-signed-url` (or `generate-resumable-url`)
@@ -31,7 +31,7 @@ The signed URL will be visible in the Response JSON!
 ### Generate Standard Signed URL
 
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{
     "filename": "my-test-file.txt",
@@ -42,7 +42,7 @@ curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed
 **Response Example:**
 ```json
 {
-  "signed_url": "https://storage.googleapis.com/biotechproject-483505-music-uploads/uploads/20260211_180000_my-test-file.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=url-signer%40biotechproject-483505.iam.gserviceaccount.com%2F20260211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260211T180000Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=abc123...",
+  "signed_url": "https://storage.googleapis.com/YOUR-PROJECT-ID-music-uploads/uploads/20260211_180000_my-test-file.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=url-signer%40YOUR-PROJECT-ID.iam.gserviceaccount.com%2F20260211%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260211T180000Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost&X-Goog-Signature=abc123...",
   "filename": "uploads/20260211_180000_my-test-file.txt",
   "method": "PUT",
   "content_type": "text/plain",
@@ -54,7 +54,7 @@ curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed
 ### Generate Resumable Upload URL
 
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-resumable-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-resumable-url' \
   -H 'Content-Type: application/json' \
   -d '{
     "filename": "large-file.zip",
@@ -65,7 +65,7 @@ curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-resuma
 **Response Example:**
 ```json
 {
-  "resumable_url": "https://storage.googleapis.com/upload/storage/v1/b/biotechproject-483505-music-uploads/o?uploadType=resumable&upload_id=ABPtcPo...",
+  "resumable_url": "https://storage.googleapis.com/upload/storage/v1/b/YOUR-PROJECT-ID-music-uploads/o?uploadType=resumable&upload_id=ABPtcPo...",
   "filename": "uploads/20260211_180000_large-file.zip",
   "method": "PUT",
   "content_type": "application/zip",
@@ -93,7 +93,7 @@ cd "/Users/shankar/Documents/GCP Projects - Signed URL"
 
 **Standard Signed URL Request:**
 - **Method:** POST
-- **URL:** `https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url`
+- **URL:** `https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url`
 - **Headers:** `Content-Type: application/json`
 - **Body (raw JSON):**
   ```json
@@ -105,7 +105,7 @@ cd "/Users/shankar/Documents/GCP Projects - Signed URL"
 
 **Resumable URL Request:**
 - **Method:** POST
-- **URL:** `https://biotechproject-483505.uc.r.appspot.com/api/generate-resumable-url`
+- **URL:** `https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-resumable-url`
 - **Headers:** `Content-Type: application/json`
 - **Body (raw JSON):**
   ```json
@@ -166,7 +166,7 @@ echo ""
 
 # Step 1: Generate
 echo "1. Generating signed URL..."
-RESPONSE=$(curl -s -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+RESPONSE=$(curl -s -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "demo.txt", "content_type": "text/plain"}')
 
@@ -193,7 +193,7 @@ echo "=== RESUMABLE URL ==="
 echo ""
 
 # Resumable URL
-RESUMABLE=$(curl -s -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-resumable-url' \
+RESUMABLE=$(curl -s -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-resumable-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "large.txt", "content_type": "text/plain"}')
 
@@ -207,21 +207,21 @@ echo "$RESUMABLE" | jq .
 
 ### Generate and Pretty Print Standard URL
 ```bash
-curl -s -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -s -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq .
 ```
 
 ### Extract Just the URL
 ```bash
-curl -s -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -s -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq -r '.signed_url'
 ```
 
 ### Generate and Save to Variable
 ```bash
-SIGNED_URL=$(curl -s -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+SIGNED_URL=$(curl -s -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq -r '.signed_url')
 
@@ -235,7 +235,7 @@ echo "URL saved: $SIGNED_URL"
 Run this simple one-liner to see a signed URL:
 
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "quick-test.txt", "content_type": "text/plain"}' | jq .
 ```

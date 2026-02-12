@@ -21,8 +21,8 @@ pip install -r requirements.txt
 
 ```bash
 cd backend
-export BUCKET_NAME=biotechproject-483505-music-uploads
-export SERVICE_ACCOUNT_EMAIL=url-signer@biotechproject-483505.iam.gserviceaccount.com
+export BUCKET_NAME=YOUR-PROJECT-ID-music-uploads
+export SERVICE_ACCOUNT_EMAIL=url-signer@YOUR-PROJECT-ID.iam.gserviceaccount.com
 python main.py
 ```
 
@@ -65,13 +65,13 @@ Open: **http://localhost:8000/index-with-auth.html**
 
 #### Test 4: Check File Organization
 ```bash
-gsutil ls gs://biotechproject-483505-music-uploads/uploads/
+gsutil ls gs://YOUR-PROJECT-ID-music-uploads/uploads/
 ```
 
 ✅ **EXPECTED:** Files organized by user ID!
 ```
-gs://biotechproject-483505-music-uploads/uploads/YOUR_USER_ID_HERE/
-gs://biotechproject-483505-music-uploads/uploads/YOUR_USER_ID_HERE/20260211_120000_yourfile.txt
+gs://YOUR-PROJECT-ID-music-uploads/uploads/YOUR_USER_ID_HERE/
+gs://YOUR-PROJECT-ID-music-uploads/uploads/YOUR_USER_ID_HERE/20260211_120000_yourfile.txt
 ```
 
 #### Test 5: Sign Out
@@ -123,7 +123,7 @@ curl -X POST 'http://localhost:8080/api/generate-signed-url' \
 
 ```bash
 cd backend
-gcloud app deploy --project=biotechproject-483505
+gcloud app deploy --project=YOUR-PROJECT-ID
 ```
 
 **Wait 2-3 minutes for deployment...**
@@ -132,7 +132,7 @@ gcloud app deploy --project=biotechproject-483505
 
 ```bash
 # Test without auth - should FAIL
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt"}'
 
@@ -143,7 +143,7 @@ curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed
 ### Step 3: Use Frontend with Production
 
 1. Open `index-with-auth.html`
-2. Change Backend URL to: `https://biotechproject-483505.uc.r.appspot.com`
+2. Change Backend URL to: `https://YOUR-PROJECT-ID.uc.r.appspot.com`
 3. Sign in
 4. Upload files!
 

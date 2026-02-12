@@ -6,19 +6,19 @@ A hands-on project demonstrating direct browser uploads to Google Cloud Storage 
 
 This project demonstrates the GCP best practice for allowing users to upload files directly from their browser to Cloud Storage **without passing through your backend** - a key pattern for the GCP Associate Cloud Engineer exam.
 
-## ✅ What's Deployed
+## ✅ What You'll Deploy
 
-- **Backend API:** https://biotechproject-483505.uc.r.appspot.com
-- **Cloud Storage Bucket:** biotechproject-483505-music-uploads
-- **Status:** 🟢 Fully operational
+- **Backend API:** `https://YOUR-PROJECT-ID.uc.r.appspot.com`
+- **Cloud Storage Bucket:** `YOUR-PROJECT-ID-music-uploads`
+- **Status:** Ready to deploy
 
 ## 🚀 Quick Start
 
 ### Test with Command Line
 
 ```bash
-# Generate a signed URL
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+# Generate a signed URL (after deployment)
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt", "content_type": "text/plain"}' | jq .
 ```
@@ -33,7 +33,7 @@ python3 -m http.server 8000
 
 Then:
 1. Open http://localhost:8000 in browser
-2. Set Backend URL to: `https://biotechproject-483505.uc.r.appspot.com`
+2. Set Backend URL to: `https://YOUR-PROJECT-ID.uc.r.appspot.com`
 3. Upload files!
 
 ## 📁 Project Structure
@@ -117,9 +117,9 @@ Your deployed backend provides:
 
 ## 🧪 Try It Now
 
-**Generate a signed URL:**
+**Generate a signed URL (after deploying):**
 ```bash
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "my-file.txt", "content_type": "text/plain"}' | jq .
 ```
@@ -141,7 +141,7 @@ When you're done learning:
 
 ```bash
 # Delete uploaded files
-gsutil -m rm -r gs://biotechproject-483505-music-uploads/uploads/
+gsutil -m rm -r gs://YOUR-PROJECT-ID-music-uploads/uploads/
 
 # Destroy infrastructure
 terraform destroy

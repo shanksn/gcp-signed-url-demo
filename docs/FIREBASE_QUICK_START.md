@@ -13,12 +13,12 @@ I've already enabled the Firebase APIs for your project:
 
 1. **Open:** https://console.firebase.google.com/
 2. **You should see:** "Add Firebase to one of your existing Google Cloud projects"
-3. **Select:** biotechproject-483505
+3. **Select:** YOUR-PROJECT-ID
 4. **Click:** Continue
 
 **If you DON'T see your project:**
 - Make sure you're logged in with the same Google account
-- Try this direct link: https://console.firebase.google.com/u/0/project/biotechproject-483505/overview
+- Try this direct link: https://console.firebase.google.com/u/0/project/YOUR-PROJECT-ID/overview
 
 ### Step 2: Enable Google Sign-In
 
@@ -43,9 +43,9 @@ I've already enabled the Firebase APIs for your project:
 ```javascript
 const firebaseConfig = {
   apiKey: "AIzaSy...",
-  authDomain: "biotechproject-483505.firebaseapp.com",
-  projectId: "biotechproject-483505",
-  storageBucket: "biotechproject-483505.appspot.com",
+  authDomain: "YOUR-PROJECT-ID.firebaseapp.com",
+  projectId: "YOUR-PROJECT-ID",
+  storageBucket: "YOUR-PROJECT-ID.appspot.com",
   messagingSenderId: "...",
   appId: "..."
 };

@@ -4,7 +4,7 @@
 
 set -e
 
-API_URL="https://biotechproject-483505.uc.r.appspot.com"
+API_URL="https://YOUR-PROJECT-ID.uc.r.appspot.com"
 
 echo "╔═══════════════════════════════════════════════════════════════╗"
 echo "║                                                               ║"

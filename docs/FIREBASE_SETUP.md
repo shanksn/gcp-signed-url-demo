@@ -16,7 +16,7 @@ Add Google Sign-In to your app so that:
 
 1. Go to https://console.firebase.google.com/
 2. Click "Add project"
-3. Select existing project: **biotechproject-483505**
+3. Select existing project: **YOUR-PROJECT-ID**
 4. Click "Continue"
 5. Disable Google Analytics (not needed for this demo)
 6. Click "Add Firebase"
@@ -25,7 +25,7 @@ Add Google Sign-In to your app so that:
 
 ```bash
 # Enable Firebase Management API
-gcloud services enable firebase.googleapis.com --project=biotechproject-483505
+gcloud services enable firebase.googleapis.com --project=YOUR-PROJECT-ID
 
 # This creates a Firebase project linked to your GCP project
 ```
@@ -55,9 +55,9 @@ It will look like:
 ```javascript
 const firebaseConfig = {
   apiKey: "AIza...",
-  authDomain: "biotechproject-483505.firebaseapp.com",
-  projectId: "biotechproject-483505",
-  storageBucket: "biotechproject-483505.appspot.com",
+  authDomain: "YOUR-PROJECT-ID.firebaseapp.com",
+  projectId: "YOUR-PROJECT-ID",
+  storageBucket: "YOUR-PROJECT-ID.appspot.com",
   messagingSenderId: "...",
   appId: "1:..."
 };
@@ -69,7 +69,7 @@ const firebaseConfig = {
 
 **Your existing service account can be used!**
 
-The service account you created with Terraform (`url-signer@biotechproject-483505.iam.gserviceaccount.com`) can also verify Firebase tokens.
+The service account you created with Terraform (`url-signer@YOUR-PROJECT-ID.iam.gserviceaccount.com`) can also verify Firebase tokens.
 
 No additional setup needed - we'll use the existing `service-account-key.json`!
 
@@ -226,9 +226,9 @@ Create `frontend/firebase-config.js`:
 // REPLACE WITH YOUR CONFIG FROM STEP 3!
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
-  authDomain: "biotechproject-483505.firebaseapp.com",
-  projectId: "biotechproject-483505",
-  storageBucket: "biotechproject-483505.appspot.com",
+  authDomain: "YOUR-PROJECT-ID.firebaseapp.com",
+  projectId: "YOUR-PROJECT-ID",
+  storageBucket: "YOUR-PROJECT-ID.appspot.com",
   messagingSenderId: "YOUR_SENDER_ID",
   appId: "YOUR_APP_ID"
 };
@@ -375,8 +375,8 @@ async function generateSignedUrl(backendUrl, filename, contentType) {
 
 ```bash
 cd backend
-export BUCKET_NAME=biotechproject-483505-music-uploads
-export SERVICE_ACCOUNT_EMAIL=url-signer@biotechproject-483505.iam.gserviceaccount.com
+export BUCKET_NAME=YOUR-PROJECT-ID-music-uploads
+export SERVICE_ACCOUNT_EMAIL=url-signer@YOUR-PROJECT-ID.iam.gserviceaccount.com
 python main.py
 ```
 
@@ -409,10 +409,10 @@ Try to upload → Should see "Please sign in first"
 ### Test 6: Check File Organization
 
 ```bash
-gsutil ls gs://biotechproject-483505-music-uploads/uploads/
+gsutil ls gs://YOUR-PROJECT-ID-music-uploads/uploads/
 
 # You should see folders organized by user ID:
-# gs://biotechproject-483505-music-uploads/uploads/abc123.../
+# gs://YOUR-PROJECT-ID-music-uploads/uploads/abc123.../
 ```
 
 ---
@@ -444,7 +444,7 @@ gcloud app deploy
 
 ```bash
 # Try without token - should FAIL
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -d '{"filename": "test.txt"}'
 
@@ -458,7 +458,7 @@ curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed
 # Get a token (from browser console after logging in)
 TOKEN="eyJhbGciOi..."  # Copy from browser
 
-curl -X POST 'https://biotechproject-483505.uc.r.appspot.com/api/generate-signed-url' \
+curl -X POST 'https://YOUR-PROJECT-ID.uc.r.appspot.com/api/generate-signed-url' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN \
   -d '{"filename": "test.txt"}'
